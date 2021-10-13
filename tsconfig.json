@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "target": "ES5",                          
+      "module": "ESNext",                                               
+      "jsx": "react",    
+      "strict": true,
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "typeRoots": [
+        "./types",
+        "./node_modules/@types"
+      ]
+    },
+    "include": [
+       "src"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
