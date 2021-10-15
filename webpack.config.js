@@ -3,15 +3,14 @@ const path = require("path");
 module.exports = {
 
     entry: {
-        "index": path.resolve(__dirname, "src", "backend", "index.ts"),
-        "public/js/app": path.resolve(__dirname, "src", "frontend", "App.tsx"),
+        app: path.resolve(__dirname, "src", "frontend", "App.tsx"),
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, "dist", "public", "js"),
         filename: "[name].js"
     },
     resolve: {
-        extensions: [".js", ".json", ".ts", ".tsx"]
+        extensions: [".js", ".json", ".ts", ".tsx"],
     },
     module: {
         rules: [

@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _default=app=>{app.get("/",(req,res)=>{res.send("Hello world!")});app.get("/sign-in",(req,res)=>{res.send("Sign In")})};exports.default=_default;

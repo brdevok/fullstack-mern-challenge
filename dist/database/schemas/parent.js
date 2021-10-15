@@ -1,0 +1,3 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _mongoose=require("mongoose");/**
+ * The parent schema contains data of the parent user.
+ */const parentSchema=new _mongoose.Schema({name:{type:String,required:true},surname:{type:String,required:true},document:{type:String,unique:true,required:true},password:{type:String,required:true}},{versionKey:false});var _default=parentSchema;exports.default=_default;

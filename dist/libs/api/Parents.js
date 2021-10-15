@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _database=require("../../database/database");class ParentsApi{static async createParent(data){_database.Parents.create(data).then(res=>{return res}).catch(error=>{return error})}}var _default=ParentsApi;exports.default=_default;

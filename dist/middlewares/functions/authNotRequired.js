@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;const authNotRequired=(req,res,next)=>{const user=req.user;if(user&&(user===null||user===void 0?void 0:user.auth)===true){res.redirect("/");return}next()};var _default=authNotRequired;exports.default=_default;

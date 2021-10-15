@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _default=app=>{const entry="/api";app.get(`${entry}/`,(req,res)=>{res.send("API ENDPOINT")})};exports.default=_default;

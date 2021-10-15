@@ -1,0 +1,5 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _database=require("../../database/database");class ParentsApi{static async createParent(data){return await _database.Parents.create(data).then(()=>true).catch(()=>false)}static async addChild(parentId,childDocument){// Get current children array
+const children=await _database.Parents.findById(parentId,"children").then(results=>results.children).catch(()=>false);// Update if children value is ok
+if(children!==false){// Add the new child to the array only if not exist in it
+if(!children.some(child=>child.document===childDocument)){children.push({document:childDocument})}else{return false}// Update
+return await _database.Parents.findByIdAndUpdate(parentId,{children}).then(()=>true).catch(()=>false)}else{return false}}}var _default=ParentsApi;exports.default=_default;

@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _path=_interopRequireDefault(require("path"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var _default=app=>{app.get("*",(req,res)=>{res.sendFile(_path.default.join(__dirname,"../public/index.html"))})};exports.default=_default;
