@@ -1,19 +1,17 @@
-import { NextFunction, Request, Response } from "express";
-import { JWT_PRIVATE_KEY } from "../../assets/JWT";
-import jwt from "jsonwebtoken";
-import { AuthToken } from "../../../../types/auth";
+import { RequestHandler } from "express";
 
-const notAuthRequired = (req:Request, res:Response, next:NextFunction) => {
+/**
+ * Checks the request user object and verify if the user doesn't exist 
+ * or wasn't authorized, if that's true keeps going, granting the client
+ * access to those app sections where auth is no required.
+ */
+const notAuthRequired:RequestHandler = (req, res, next) => {
 
-    if (typeof req.cookies.jwt !== "undefined") {
-        const token = jwt.verify(req.cookies.jwt, JWT_PRIVATE_KEY) as AuthToken;
-        if (!token.auth) {
-            next();
-        } else {  
-            res.redirect("/");
-        }
+    if (!req.user || !req.user.auth) {
+        next();
+    } else {  
+        res.redirect("/");
     }
-    next();
 
 }
 

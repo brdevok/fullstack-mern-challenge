@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import AuthFormBox from "../../../components/boxes/AuthFormBox";
-import { SignInResponse, UserAuth, UserAuthValidations } from "../../../../../types/auth";
 import Validator from "@braiandev/string-validator";
 import { Button, Link, TextField, Typography } from "@mui/material";
 import AssignmentIndRoundedIcon from '@mui/icons-material/AssignmentIndRounded';
@@ -9,13 +8,14 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import ROUTES from "../../../assets/ROUTES";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { SignInForm as Form, SignInFormValidations, SignInSubmitResponse } from "../../../../../types/SignIn";
 
 const SignInForm:React.FC<{type:string}> = ({type}):JSX.Element => {
 
     const validate = new Validator();
 
-    const [form, setForm] = useState<UserAuth>({ document: "", password: ""});
-    const [validations, setValidations] = useState<UserAuthValidations>({ document: false, password: false});
+    const [form, setForm] = useState<Form>({ document: "", password: ""});
+    const [validations, setValidations] = useState<SignInFormValidations>({ document: false, password: false});
     const [disableSubmit, setDisableSubmit] = useState<boolean>(true);
     const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -57,10 +57,14 @@ const SignInForm:React.FC<{type:string}> = ({type}):JSX.Element => {
 
     const submit = async () => {
 
-        const res:SignInResponse = await axios.post(`/auth/${type}/sign-in`, form);
+        const res = await axios.post<SignInSubmitResponse>(`/auth/sign-in/${type}`, form);
 
         if (res.data.error) {
             if (res.data.message) setErrorMessage(res.data.message);
+        } else if (res.data.notExist) {
+            setErrorMessage("User is not registered.");
+        } else if (res.data.notMatch) {
+            setErrorMessage("The password is wrong.");
         } else {
             Cookies.set("jwt", res.data.token, { expires: 1 / 24 });
             window.location.replace(ROUTES["HOME"]);
@@ -78,7 +82,7 @@ const SignInForm:React.FC<{type:string}> = ({type}):JSX.Element => {
                 color="gray"
                 textAlign="center"
             >
-                {type === "parents" ? "Parents" : "Childrens"}
+                {type === "parent" ? "Parents" : "Childrens"}
             </Typography>
             <Typography
                 variant="h4"
@@ -135,7 +139,7 @@ const SignInForm:React.FC<{type:string}> = ({type}):JSX.Element => {
                 Authorize Me
             </Button>
             {
-                type === "parents"
+                type === "parent"
                 ? <Link 
                     href={ROUTES["SIGN_UP"]} 
                     sx={{

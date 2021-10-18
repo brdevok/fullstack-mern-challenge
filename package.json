@@ -5,16 +5,16 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "lint": "npm run eslint src/**",
+    "lint": "eslint src/**",
     "bundle:watch": "webpack --mode development --watch",
     "bundle": "webpack --mode production",
     "build:watch": "babel ./src/backend --out-dir ./dist --extensions \".ts,.js\" --minified --watch",
     "build": "babel ./src/backend --out-dir ./dist --extensions \".ts,.js\" --minified",
     "start:watch": "nodemon dist/index.js",
-    "start": "npm run dist/index.js"
+    "start": "node dist/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Braian Rosas",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.15.7",
@@ -32,9 +32,13 @@
     "@types/jsonwebtoken": "^8.5.5",
     "@types/react": "^17.0.29",
     "@types/react-dom": "^17.0.9",
+    "@types/react-helmet": "^6.1.4",
     "@types/react-router-dom": "^5.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
     "babel-loader": "^8.2.2",
-    "eslint": "^8.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.26.1",
     "jest": "^27.2.5",
     "nodemon": "^2.0.13",
     "ts-loader": "^9.2.6",
@@ -59,6 +63,7 @@
     "mongoose": "^6.0.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
     "react-router-dom": "^5.3.0"
   }
 }

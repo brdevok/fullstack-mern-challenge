@@ -13,19 +13,3 @@ export const URL:string = process.env.NODE_ENV === "production" ? "mongodb://loc
  * and production values were set.
  */
 export const DB_NAME:string = process.env.NODE_ENV === "production" ? "fullstack-mern-challenge-db" : "fullstack-mern-challenge-db";
-
-/**
- * Name for parents collection.
- * 
- * The value may change depending on the current enviroment mode if development
- * and production values were set.
- */
-export const PARENTS_COL:string = process.env.NODE_ENV === "production" ? "parents" : "parents";
-
-/**
- * Name for parents collection.
- * 
- * The value may change depending on the current enviroment mode if development
- * and production values were set.
- */
-export const CHILDRENS_COL:string = process.env.NODE_ENV === "production" ? "childrens" : "childrens";

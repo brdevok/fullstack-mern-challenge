@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;const apiAuth=(req,res,next)=>{if(!req.skip){if(req.user&&req.user.auth){next()}else{res.sendStatus(403)}}else{next()}};var _default=apiAuth;exports.default=_default;

@@ -1,6 +1,7 @@
 import ChildrenController from "../src/backend/libs/controllers/ChildrenController";
 import { connect } from "../src/backend/database/database";
 import mongoose from "mongoose";
+import { ProfileUpdate } from "../types/ParentController";
 
 //  + -------------- +
 //  |  TESTS SUITES  |
@@ -10,36 +11,79 @@ import mongoose from "mongoose";
 beforeAll(async () => await connect());
 
 // Existent documents data for tests (all data stored in this variables must exist in database!)
-const existentParentId = new mongoose.Types.ObjectId("61689f3d5ee578c063c64887");
-const existentParentIdWithoutChildren = new mongoose.Types.ObjectId("6168a37414a3a2a1bc602cbc");
-const existentParentIdWithManyChildren = new mongoose.Types.ObjectId("61689f3d5ee578c063c64887");
+const existentParentId = "616c747c2c6b7ddf2534abab";
+const existentChildId = "616c74efd1581fe73a4373a1";
+const existentChildDoc = "17349796";
 
-describe.skip("Test list children data", () => {
+const existentChildIdToDelete = "616c759802a0760e9ddf32ec";
+const existentParentIdOfChild = "616c747c2c6b7ddf2534abab"; // Must be related to the above child id
 
-    test("If the parent has children, must return an array of children", async () => {
-        const results = await ChildrenController.listParentChildren(existentParentId, 0, 10);
+describe.skip("Test the children creation method", () => {
+
+    test("Must return the parent document of created", async () => {
+        const results:any = await ChildrenController.createChild(existentParentId, {
+            name: "Name",
+            surname: "Surname",
+            document: Math.round(Math.random() * (99999999 - 10000000) + 10000000).toString(),
+            password: "Pass123"
+        });
+        expect(Object.keys(results._doc).sort()).toEqual(["_id", "name", "surname", "document", "password", "parent"].sort());
+    });
+
+});
+
+describe.skip("Test the get profile data method.", () => {
+
+    test("Must return a profile data object if child exist.", async () => {
+        const results:any = await ChildrenController.getProfile(existentChildId);
+        expect(Object.keys(results._doc).sort()).toEqual(["_id", "name", "surname", "document", "parent"].sort());
+    });
+
+});
+
+describe.skip("Test the update profile method.", () => {
+
+    test("Must return updated details if the update was succesful.", async () => {
+        const results:any = await ChildrenController.updateProfile(existentChildId, { name: "Updated Name" } as ProfileUpdate);
+        expect(results.matchedCount).toBe(1);
+        expect(results.modifiedCount).toBeLessThanOrEqual(1);
+    });
+
+});
+
+describe.skip("Test the delete child method.", () => {
+
+    test("Must return deletion details if the deletion was succesful.", async () => {
+        const results:any = await ChildrenController.deleteChild(existentChildIdToDelete, existentParentIdOfChild);
+        expect(results.deletedCount).toBe(1);
+    });
+
+});
+
+describe.skip("Test the authorization credentials getter method", () => {
+
+    test("Must return a password and an id if a user if exist", async () => {
+        const results:any = await ChildrenController.getAuthCredentials(existentChildDoc);
+        expect(Object.keys(results._doc).sort()).toEqual(["_id", "password"].sort());
+    });
+
+    test("Must return null if user doesn't exist", async () => {
+        const results:any = await ChildrenController.getAuthCredentials("notexist");
+        expect(results).toEqual(null);
+    });
+
+});
+
+describe.skip("Test the get children list method", () => {
+
+    test("Must return an array of children if success", async () => {
+        const results:any = await ChildrenController.getChildrenList();
         expect(Array.isArray(results)).toBe(true);
-        expect(typeof results[0]).toBe("object");
     });
 
-    test("If the parent has no children, must return an empty array", async () => {
-        const results = await ChildrenController.listParentChildren(existentParentIdWithoutChildren, 0, 10);
-        expect(Array.isArray(results)).toBe(true);
-        expect(results.length === 0).toBe(true);
-    });
-
-    test("Limit the picked children documents to 3 must return only 3 documents.", async () => {
-        const results = await ChildrenController.listParentChildren(existentParentIdWithManyChildren, 0, 3);
-        expect(results.length === 3).toBe(true);
-    });
-
-    test("Skip the first 3 children with a limit of 3 must return the 4th, 5th and 5th children.", async () => {
-        const snap = await ChildrenController.listParentChildren(existentParentIdWithManyChildren, 0, 6);
-        const results = await ChildrenController.listParentChildren(existentParentIdWithManyChildren, 3, 3);
-        expect(results.length === 3).toBe(true);
-        expect(results[0]._id).toStrictEqual(snap[3]._id);
-        expect(results[1]._id).toStrictEqual(snap[4]._id);
-        expect(results[2]._id).toStrictEqual(snap[5]._id);
+    test("Must return only 2 children inside an array when limit the results to 2", async () => {
+        const results:any = await ChildrenController.getChildrenList(0, 2);
+        expect(results.length).toBe(2);
     });
 
 });

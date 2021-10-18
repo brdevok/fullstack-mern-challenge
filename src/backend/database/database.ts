@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-import { URL, DB_NAME, PARENTS_COL, CHILDRENS_COL } from "../assets/DATABASE";
-import parentSchema from "./schemas/parent";
-import childrenSchema from "./schemas/children";
+import { URL, DB_NAME } from "../assets/DATABASE";
 
 /**
  * The URL that will be used to connect to the dabase.
@@ -24,10 +22,9 @@ export const connect = async () => {
 
 };
 
-
 /**
- * Create the models of the collections that the app will be 
- * using from the database.
+ * The current connection with the database.
  */
-export const Parent   = mongoose.model(PARENTS_COL, parentSchema);
-export const Children = mongoose.model(CHILDRENS_COL, childrenSchema);
+const conn = mongoose.connection;
+
+export default conn;

@@ -18,7 +18,7 @@
      */static async signUp(model,data){// Check if user exist
 const userExist=await _UserController.default.verifyExistence(model,data.document);if(userExist)throw new Error("USER_ALREADY_EXIST");// Hash password
 data.password=await this.hashPassword(data.password);// Create the user
-const signedUserId=await _UserController.default.createUser(model,data);if(signedUserId)return true;throw new Error}/**
+const signedUserId=await _UserController.default.createUser(model,data);if(signedUserId)return signedUserId.toString();throw new Error}/**
      * Manage the sign in logic of a user, compares if the credentials exists and
      * if passwords match.
      * 

@@ -4,6 +4,7 @@ import ChooseLoginCard from "./ChooseLoginCard";
 import SupervisedUserCircleRoundedIcon from '@mui/icons-material/SupervisedUserCircleRounded';
 import FaceRoundedIcon from '@mui/icons-material/FaceRounded';
 import { Box } from "@mui/system";
+import ROUTES from "../../../assets/ROUTES";
 
 const ChooseLogin:React.FC = ():JSX.Element => {
 
@@ -21,12 +22,12 @@ const ChooseLogin:React.FC = ():JSX.Element => {
                 <ChooseLoginCard
                     title="Parents"
                     icon={<SupervisedUserCircleRoundedIcon/>}
-                    path="/sign-in/parents"
+                    path={`${ROUTES["SIGN_IN"]}/parent`}
                 />
                 <ChooseLoginCard
                     title="Childrens"
                     icon={<FaceRoundedIcon/>}
-                    path="/sign-in/childrens"
+                    path={`${ROUTES["SIGN_IN"]}/children`}
                 />
             </Grid>
         </Box>

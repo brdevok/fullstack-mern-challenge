@@ -6,7 +6,8 @@
     },
     "env": {
         "es2021": true,
-        "node": true
+        "node": true,
+        "browser": true
     },
     "extends": ["eslint:recommended", "plugin:react/recommended"],
     "parser": "@typescript-eslint/parser",
@@ -22,7 +23,8 @@
         "@typescript-eslint"
     ],
     "globals": {
-        "JSX": true
+        "JSX": true,
+        "HTMLInputElement": true
     },
     "rules": {
         "no-unused-vars": "off",

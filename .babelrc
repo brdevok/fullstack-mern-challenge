@@ -4,5 +4,6 @@
         "@babel/preset-react",
         "@babel/preset-typescript"
     ],
-    "compact": true
+    "compact": true,
+    "comments": false
 }

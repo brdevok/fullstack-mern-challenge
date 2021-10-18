@@ -9,7 +9,7 @@ const ChooseLoginCard:React.FC<{icon:JSX.Element, title:string, path:string}> = 
             xs={12}
             sm={6}
             md={4}
-            lg={2}
+            lg={3}
         >
             <Link 
                 href={path}
