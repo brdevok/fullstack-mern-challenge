@@ -29,6 +29,14 @@ If a user sign in as a child, at the homepage will be displayed only his data an
 The server will provide different routes and checkpoints to correctly provide information to the client, the first thing that the server does when a user makes a call to some route is to check if there is any json web token, if there is, then stores it's data to later use. If a route is protected and requires authorization/or not, a set of middlewares will check if the user data from the JWT (if it exist) has the correct permission, if it does, the route will make the related logic, if not the user will be redirected (if it's an api call, it returns 403 instead redirection).
 There is two controllers to manage the users data around the app, one for parents and other for childrens, if some error occurs, a json object with error data will be returned. 
 
+#### API
+
+All api endpoints are private for authorized users only, but there is a public one to retrieve all childrens data, the endpoint is `/api/pub/children`, by default it limit the results by 10, but you can pass to query parameters to modify them, a `skip` parameter to skip results and `limit` to modify the results to return.
+By default `skip` is set to 0 and `limit` is set to 10, but you can pass custom values like below:
+
+ * `/api/pub/children?limit=0` - Will return all childrens without limits.
+ * `/api/pub/children?skip=20&limit=20` - Will skip the first 20 results and return a limit o 20 results.
+
 #### How to run
 
 ##### Run the app with `npm start`
